@@ -25,7 +25,7 @@ namespace GraphWinService
             try
             {
                 var _graphClient = GraphClientApp();
-                getUsersAsync(_graphClient).GetAwaiter();
+                getGroupsAsync(_graphClient).GetAwaiter();
             }
             catch (Exception e)
             {
@@ -56,15 +56,12 @@ namespace GraphWinService
 
         }
 
-        public async Task getUsersAsync(GraphServiceClient graphServiceClient)
+        public async Task getGroupsAsync(GraphServiceClient graphServiceClient)
         {
             var groups = await graphServiceClient.Groups.Request().Select(x => new { x.Id, x.DisplayName }).GetAsync();
             foreach (var group in groups)
             {
-                //Console.WriteLine($"{group.DisplayName}, {group.Id}");
                 WriteLog($"{group.DisplayName}, {group.Id}");
-                
-               
             }
         }
 
